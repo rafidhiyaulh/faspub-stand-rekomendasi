@@ -1,5 +1,5 @@
 function loadCSVandPickRandom(callback) {
-    fetch('data/dataset_pipe.csv')
+    fetch('/dataset_pipe.csv')
       .then((response) => response.text())
       .then((text) => {
         const rows = text.trim().split('\n');

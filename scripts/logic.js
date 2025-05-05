@@ -3,9 +3,9 @@ function loadCSVandPickRandom(callback) {
       .then((response) => response.text())
       .then((text) => {
         const rows = text.trim().split('\n');
-        const headers = rows[0].split(',');
+        const headers = rows[0].split('|');
         const data = rows.slice(1).map(row => {
-          const values = row.split(',');
+          const values = row.split('|');        
           const entry = {};
           headers.forEach((h, i) => entry[h.trim()] = values[i]?.trim());
           return entry;

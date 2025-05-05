@@ -1,7 +1,5 @@
-// scripts/logic.js
-
 function loadCSVandPickRandom(callback) {
-    fetch('data/dataset.csv')
+    fetch('data/dataset_pipe.csv')
       .then((response) => response.text())
       .then((text) => {
         const rows = text.trim().split('\n');

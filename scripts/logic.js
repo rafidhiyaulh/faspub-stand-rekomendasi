@@ -1,17 +1,29 @@
 function loadCSVandPickRandom(callback) {
-    fetch('/dataset_clean.csv')
+    fetch('/dataset_clean_fixed.csv')
       .then((response) => response.text())
       .then((text) => {
         const rows = text.trim().split('\n');
-        const headers = rows[0].split('|');
+        const headers = rows[0].split('|').map(h => h.trim());
         const data = rows.slice(1).map(row => {
-          const values = row.split('|');
+          const values = row.split('|').map(v => v.trim());
+          if (values.length !== headers.length) return null; // skip baris rusak
           const entry = {};
-          headers.forEach((h, i) => entry[h.trim()] = values[i]?.trim() || '');
+          headers.forEach((h, i) => {
+            entry[h] = values[i] || '';
+          });
           return entry;
-        });
+        }).filter(Boolean); // remove null
+  
+        if (data.length === 0) {
+          console.error("Data kosong atau semua baris tidak valid.");
+          return;
+        }
+  
         const selected = data[Math.floor(Math.random() * data.length)];
         callback(selected);
+      })
+      .catch(error => {
+        console.error('Gagal memuat CSV:', error);
       });
   }
   

@@ -1,100 +1,49 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rekomendasi Jalan-Jalan</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff8f0;
-      padding: 2rem;
-      text-align: center;
-    }
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-    .rekomendasi-card {
-      background-color: #fef3c7;
-      border: 2px solid #fbbf24;
-      border-radius: 20px;
-      padding: 1.5rem;
-      margin: 2rem auto;
-      max-width: 400px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      font-size: 1.1rem;
-      line-height: 1.6;
-      text-align: left;
-    }
-    .rekomendasi-card h2 {
-      margin: 0 0 0.5rem;
-      font-size: 1.4rem;
-      color: #d97706;
-    }
-    .rekomendasi-card .item {
-      margin-left: 1rem;
-    }
-    button {
-      background-color: #ef476f;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-    button:hover {
-      background-color: #d8345f;
-    }
-  </style>
-</head>
-<body>
-  <h1>🎯 Rekomendasi Tempat Jajan untuk Kamu</h1>
-  <div class="rekomendasi-card" id="output">Loading...</div>
-  <button onclick="tampilkanRekomendasi()">🎲 Lihat Tempat Lain</button>
+// scripts/logic.js
 
-  <script>
-    async function loadCSV() {
-      const response = await fetch('data/dataset.csv');
-      const text = await response.text();
-      const rows = text.split('\n').slice(1);
-      const data = rows.map(row => {
-        const cols = row.split(',');
-        return {
-          nama: cols[0],
-          pedagang: cols[1],
-          waktu: cols[2],
-          makanan: cols[3],
-          minuman: cols[4],
-          keterangan: cols[5]
-        }
+function loadCSVandPickRandom(callback) {
+  fetch('data/dataset.csv')
+    .then((response) => response.text())
+    .then((text) => {
+      const rows = text.trim().split('\n');
+      const headers = rows[0].split(',');
+      const data = rows.slice(1).map(row => {
+        const values = row.split(',');
+        const entry = {};
+        headers.forEach((h, i) => entry[h.trim()] = values[i]?.trim());
+        return entry;
       });
-      return data.filter(r => r.nama);
-    }
+      const selected = data[Math.floor(Math.random() * data.length)];
+      callback(selected);
+    });
+}
 
-    let restoranList = [];
+function tampilkanRestoran() {
+  loadCSVandPickRandom(restoran => {
+    const nama = restoran['Nama'] || '-';
+    const pedagang = restoran['Pedagang'] || '-';
+    const jam = restoran['Waktu dagang'] || '-';
+    const makanan = restoran['Makanan yang dijual'] || '-';
+    const minuman = restoran['Minuman yang dijual'] || '-';
+    const catatan = restoran['Keterangan tambahan'] || '-';
 
-    async function tampilkanRekomendasi() {
-      if (restoranList.length === 0) {
-        restoranList = await loadCSV();
-      }
-      const random = restoranList[Math.floor(Math.random() * restoranList.length)];
-      const output = `
-        <h2>${random.nama}</h2>
-        <p><strong>👤 Pedagang:</strong> ${random.pedagang || '-'}</p>
-        <p><strong>🕐 Jam buka:</strong> ${random.waktu || '-'}</p>
-        <p><strong>🍽️ Makanan:</strong> ${random.makanan || '-'}</p>
-        <p><strong>🥤 Minuman:</strong> ${random.minuman || '-'}</p>
-        <p><strong>📝 Catatan:</strong> ${random.keterangan || '-'}</p>
-      `;
-      document.getElementById('output').innerHTML = output;
-    }
+    const makananList = makanan.split(';').map(item => `<li>${item.trim()}</li>`).join('');
+    const minumanList = minuman.split(';').map(item => `<li>${item.trim()}</li>`).join('');
 
-    // Tampilkan saat halaman dimuat
-    tampilkanRekomendasi();
-  </script>
-</body>
-</html>
+    document.getElementById("resto-box").innerHTML = `
+      <h2>${nama}</h2>
+      <p><strong>👤 Pedagang:</strong> ${pedagang}</p>
+      <p><strong>🕒 Jam buka:</strong> ${jam}</p>
+      <div class="list-block">
+        <p><strong>🍽️ Makanan:</strong></p>
+        <ul>${makananList}</ul>
+      </div>
+      <div class="list-block">
+        <p><strong>🥤 Minuman:</strong></p>
+        <ul>${minumanList}</ul>
+      </div>
+      <p><strong>📝 Catatan:</strong> ${catatan}</p>
+    `;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', tampilkanRestoran);

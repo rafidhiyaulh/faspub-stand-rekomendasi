@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faspub QR Recommendation</title>
+  <script>
+    function redirect(choice) {
+      if (choice === 'makan') {
+        window.location.href = 'makan.html';
+      } else if (choice === 'jalan') {
+        window.location.href = 'jalan.html';
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    button {
+      padding: 1.2rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .makan {
+      background-color: #ef476f;
+      color: white;
+    }
+    .makan:hover {
+      background-color: #d8345f;
+    }
+    .jalan {
+      background-color: #06d6a0;
+      color: white;
+    }
+    .jalan:hover {
+      background-color: #05b68d;
+    }
+  </style>
+</head>
+<body>
+  <h1>Scan berhasil! Kamu mau...</h1>
+  <div class="button-container">
+    <button class="makan" onclick="redirect('makan')">🍜 Makan</button>
+    <button class="jalan" onclick="redirect('jalan')">🚶 Jalan-Jalan</button>
+  </div>
+</body>
+</html>

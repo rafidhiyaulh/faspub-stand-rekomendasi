@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Kategori Makanan</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    button {
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .ayam {
+      background-color: #f77f00;
+      color: white;
+    }
+    .ayam:hover {
+      background-color: #e76f00;
+    }
+    .kuah {
+      background-color: #118ab2;
+      color: white;
+    }
+    .kuah:hover {
+      background-color: #0f789d;
+    }
+    .lainnya {
+      background-color: #06d6a0;
+      color: white;
+    }
+    .lainnya:hover {
+      background-color: #04be8d;
+    }
+  </style>
+  <script>
+    function pilihKategori(kategori) {
+      window.location.href = `rekomendasi.html?kategori=${kategori}`;
+    }
+  </script>
+</head>
+<body>
+  <h1>Lagi pengen makan apa?</h1>
+  <div class="button-group">
+    <button class="ayam" onclick="pilihKategori('ayam')">🍗 Ayam</button>
+    <button class="kuah" onclick="pilihKategori('kuah')">🍜 Kuah</button>
+    <button class="lainnya" onclick="pilihKategori('lainnya')">🍱 Lainnya</button>
+  </div>
+</body>
+</html>

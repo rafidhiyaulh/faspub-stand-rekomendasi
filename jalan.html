@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekomendasi Makan Jalan-Jalan</title>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <script>
+    function tampilkanRestoran() {
+      Papa.parse("data/dataset.csv", {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data.filter(r => r.Nama && r.Nama.trim() !== "");
+          const random = data[Math.floor(Math.random() * data.length)];
+
+          document.getElementById("restoran").innerHTML = `
+            <h2>${random.Nama}</h2>
+            <p><strong>Pedagang:</strong> ${random.Pedagang}</p>
+            <p><strong>Waktu Dagang:</strong> ${random["Waktu Dagang"]}</p>
+            <p><strong>Makanan:</strong> ${random["Makanan yang Dijual"]}</p>
+            <p><strong>Minuman:</strong> ${random["Minuman yang Dijual"]}</p>
+            <p><strong>Keterangan:</strong> ${random["Keterangan Tambahan"]}</p>
+          `;
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", tampilkanRestoran);
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .rekomendasi-box {
+      background-color: #ffb703;
+      color: #333;
+      padding: 2rem;
+      margin: 2rem auto;
+      border-radius: 16px;
+      max-width: 320px;
+      font-size: 1.2rem;
+    }
+    button {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ef476f;
+      color: white;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background-color: #d8345f;
+    }
+  </style>
+</head>
+<body>
+  <h1>Coba kunjungi tempat makan ini:</h1>
+  <div class="rekomendasi-box" id="restoran"></div>
+  <button onclick="tampilkanRestoran()">🎲 Rekomendasi Lain</button>
+</body>
+</html>

@@ -24,8 +24,17 @@ function loadCSVandPickRandom(callback) {
       const minuman = restoran['Minuman yang Dijual'] || '-';
       const catatan = restoran['Keterangan Tambahan'] || '-';
   
-      const makananList = makanan.split(';').map(item => `<li>${item.trim()}</li>`).join('');
-      const minumanList = minuman.split(';').map(item => `<li>${item.trim()}</li>`).join('');
+      const makananList = makanan
+        .split(';')
+        .filter(item => item.trim())
+        .map(item => `<li>${item.trim()}</li>`)
+        .join('');
+  
+      const minumanList = minuman
+        .split(';')
+        .filter(item => item.trim())
+        .map(item => `<li>${item.trim()}</li>`)
+        .join('');
   
       document.getElementById("resto-box").innerHTML = `
         <h2>${nama}</h2>
@@ -44,7 +53,6 @@ function loadCSVandPickRandom(callback) {
     });
   }
   
-  // Inisialisasi saat halaman sudah dimuat
   document.addEventListener('DOMContentLoaded', () => {
     tampilkanRestoran();
   

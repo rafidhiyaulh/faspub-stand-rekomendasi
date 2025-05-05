@@ -16,49 +16,55 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
+      background-color: #fff3e6;
       text-align: center;
       padding: 2rem;
+      color: #333;
     }
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
+      font-size: 2rem;
+      margin-bottom: 2rem;
     }
     .button-container {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 2rem;
       margin-top: 2rem;
     }
     button {
-      padding: 1.2rem 2rem;
+      padding: 1.5rem 2.5rem;
       font-size: 1.2rem;
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      transform: scale(1.05);
     }
     .makan {
-      background-color: #ef476f;
+      background-color: #f77f00;
       color: white;
     }
     .makan:hover {
-      background-color: #d8345f;
+      background-color: #e76f00;
     }
     .jalan {
       background-color: #06d6a0;
       color: white;
     }
     .jalan:hover {
-      background-color: #05b68d;
+      background-color: #04be8d;
     }
   </style>
 </head>
 <body>
-  <h1>Scan berhasil! Kamu mau...</h1>
+  <h1>📲 Scan berhasil! Kamu lapar?</h1>
   <div class="button-container">
-    <button class="makan" onclick="redirect('makan')">🍜 Makan</button>
-    <button class="jalan" onclick="redirect('jalan')">🚶 Jalan-Jalan</button>
+    <button class="makan" onclick="redirect('makan')">🍽️ Iya, mau makan</button>
+    <button class="jalan" onclick="redirect('jalan')">🚶 Nggak, jalan-jalan aja</button>
   </div>
 </body>
 </html>

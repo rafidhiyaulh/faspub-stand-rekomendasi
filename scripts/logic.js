@@ -7,7 +7,7 @@ function loadCSVandPickRandom(callback) {
         const data = rows.slice(1).map(row => {
           const values = row.split('|');
           const entry = {};
-          headers.forEach((h, i) => entry[h.trim()] = values[i]?.trim());
+          headers.forEach((h, i) => entry[h.trim()] = values[i]?.trim() || '');
           return entry;
         });
         const selected = data[Math.floor(Math.random() * data.length)];
@@ -17,24 +17,20 @@ function loadCSVandPickRandom(callback) {
   
   function tampilkanRestoran() {
     loadCSVandPickRandom(restoran => {
-      const nama = restoran['Nama'] || '-';
-      const pedagang = restoran['Pedagang'] || '-';
-      const jam = restoran['Waktu Dagang'] || '-';
-      const makanan = restoran['Makanan yang Dijual'] || '-';
-      const minuman = restoran['Minuman yang Dijual'] || '-';
-      const catatan = restoran['Keterangan Tambahan'] || '-';
+      const nama = restoran['Nama']?.trim() || '-';
+      const pedagang = restoran['Pedagang']?.trim() || '-';
+      const jam = restoran['Waktu Dagang']?.trim() || '-';
+      const makanan = restoran['Makanan yang Dijual']?.trim() || '';
+      const minuman = restoran['Minuman yang Dijual']?.trim() || '';
+      const catatan = restoran['Keterangan Tambahan']?.trim() || '-';
   
       const makananList = makanan
-        .split(';')
-        .filter(item => item.trim())
-        .map(item => `<li>${item.trim()}</li>`)
-        .join('');
+        ? makanan.split(';').filter(item => item.trim()).map(item => `<li>${item.trim()}</li>`).join('')
+        : '<li>-</li>';
   
       const minumanList = minuman
-        .split(';')
-        .filter(item => item.trim())
-        .map(item => `<li>${item.trim()}</li>`)
-        .join('');
+        ? minuman.split(';').filter(item => item.trim()).map(item => `<li>${item.trim()}</li>`).join('')
+        : '<li>-</li>';
   
       document.getElementById("resto-box").innerHTML = `
         <h2>${nama}</h2>

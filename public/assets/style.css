@@ -67,3 +67,18 @@ button:hover, .nav-button:hover {
   border-radius: 16px;
   box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
+
+a.secondary-button {
+  background-color: #ff6b6b;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-left: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+a.secondary-button:hover {
+  background-color: #e65555;
+}

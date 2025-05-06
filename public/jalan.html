@@ -10,11 +10,13 @@
   <h1>🎯 Rekomendasi Tempat Jajan Hari Ini</h1>
 
   <div class="card" id="resto-box">
-    <!-- Konten dari logic.js akan masuk di sini -->
+    <!-- JS akan memasukkan data di sini -->
   </div>
 
-  <button id="refresh-button">🔄 Lihat Tempat Lain</button>
-  <a class="nav-button" href="index.html">⬅️ Kembali ke Halaman Utama</a>
+  <div class="button-group">
+    <button onclick="window.location.reload()">🔄 Lihat Tempat Lain</button>
+    <a href="index.html" class="link-button">⬅️ Kembali ke Halaman Utama</a>
+  </div>
 
   <script src="scripts/logic.js"></script>
 </body>

@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         { keyword: "minuman", filename: "minuman.jpg" },
         { keyword: "padang", filename: "padang.jpg" },
         { keyword: "dimsum", filename: "dimsum.jpg" },
-        { keyword: "jasuke", filename: "snack.jpg" },
+        { keyword: "jasuke", filename: "jasuke.jpg" },
         { keyword: "cemilan", filename: "snack.jpg" },
         { keyword: "kue", filename: "snack.jpg" },
         { keyword: "buku", filename: "book.jpg" },

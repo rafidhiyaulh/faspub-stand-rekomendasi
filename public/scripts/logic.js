@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ];
 
       const jual = resto["Yang Dijual"].toLowerCase();
-      let gambarFile = "default.png";
+      let gambarFile = "default.jpg";
 
       for (const kategori of kategoriGambar) {
         if (jual.includes(kategori.keyword)) {

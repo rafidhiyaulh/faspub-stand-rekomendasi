@@ -1,86 +1,69 @@
-function loadCSVandPickRandom(callback) {
-  fetch('./dataset_clean_fixed.csv')
-    .then((response) => response.text())
-    .then((text) => {
-      const rows = text.trim().split('\n');
-      const headers = rows[0].split('|').map(h => h.trim());
-      const data = rows.slice(1).map(row => {
-        const values = row.split('|').map(v => v.trim());
-        if (values.length !== headers.length) return null;
-        const entry = {};
-        headers.forEach((h, i) => {
-          entry[h] = values[i] || '';
-        });
-        return entry;
-      }).filter(Boolean);
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("dataset_clean_fixed.csv")
+    .then(response => response.text())
+    .then(csv => {
+      const lines = csv.trim().split("\n");
+      const headers = lines[0].split("|");
+      const data = lines.slice(1).map(line => {
+        const values = line.split("|");
+        return headers.reduce((obj, header, i) => {
+          obj[header.trim()] = values[i]?.trim() || "";
+          return obj;
+        }, {});
+      });
 
-      if (data.length === 0) {
-        console.error("Data kosong atau semua baris tidak valid.");
-        return;
+      const restoBox = document.getElementById("resto-box");
+
+      const randomIndex = Math.floor(Math.random() * data.length);
+      const resto = data[randomIndex];
+
+      // Mapping kategori ke gambar
+      const kategoriGambar = [
+        { keyword: "bakmie", filename: "mie.jpg" },
+        { keyword: "mie", filename: "mie.jpg" },
+        { keyword: "ayam", filename: "ayam.jpeg" },
+        { keyword: "bebek", filename: "ayam.jpeg" },
+        { keyword: "nasi goreng", filename: "nasigoreng.jpg" },
+        { keyword: "jus", filename: "jus.jpg" },
+        { keyword: "susu", filename: "susu.jpeg" },
+        { keyword: "rice bowl", filename: "ricebowl.jpeg" },
+        { keyword: "minuman", filename: "minuman.jpg" },
+        { keyword: "padang", filename: "padang.jpg" },
+        { keyword: "dimsum", filename: "dimsum.jpg" },
+        { keyword: "jasuke", filename: "snack.jpg" },
+        { keyword: "cemilan", filename: "snack.jpg" },
+        { keyword: "kue", filename: "snack.jpg" },
+        { keyword: "buku", filename: "book.jpg" },
+        { keyword: "bubur", filename: "bubur.jpg" },
+        { keyword: "soto", filename: "soto.jpg" },
+        { keyword: "pecel", filename: "pecel.jpg" },
+        { keyword: "gorengan", filename: "gorengan.jpg" }
+      ];
+
+      const jual = resto["Yang Dijual"].toLowerCase();
+
+      let gambarFile = "default.png"; // fallback
+
+      for (const kategori of kategoriGambar) {
+        if (jual.includes(kategori.keyword)) {
+          gambarFile = kategori.filename;
+          break;
+        }
       }
 
-      const selected = data[Math.floor(Math.random() * data.length)];
-      callback(selected);
-    })
-    .catch(error => {
-      console.error('Gagal memuat CSV:', error);
+      // Membuat elemen card
+      restoBox.innerHTML = `
+        <div class="card">
+          <h2>${resto.Nama}</h2>
+          <img src="assets/images/resto/${gambarFile}" alt="${resto.Nama}" class="resto-image"/>
+          <p><strong>👤 Pedagang:</strong> ${resto.Pedagang}</p>
+          <p><strong>🕒 Jam buka:</strong> ${resto["Waktu Dagang"]}</p>
+          <p><strong>🍽️ Yang Dijual:</strong> ${resto["Yang Dijual"]}</p>
+        </div>
+        <div class="button-group">
+          <button onclick="window.location.reload()">🔄 Lihat Tempat Lain</button>
+          <a href="index.html" class="button-secondary">⬅️ Kembali ke Halaman Utama</a>
+        </div>
+      `;
     });
-}
-
-function getImageFile(item) {
-  if (!item) return 'default.png';
-
-  const keywordMapping = {
-    'jus': 'jus.jpg',
-    'susu': 'susu.jpeg',
-    'buku': 'book.jpg',
-    'rice bowl': 'ricebowl.jpeg',
-    'dimsum': 'dimsum.jpg',
-    'mie': 'mie.jpeg',
-    'goreng': 'nasigoreng.jpg',
-    'padang': 'padang.jpg',
-    'ayam': 'ayam.jpeg',
-    'snack': 'snack.jpg',
-    'cemilan': 'snack.jpg',
-    'minuman': 'minuman.jpg'
-  };
-
-  const lower = item.toLowerCase();
-  for (const key in keywordMapping) {
-    if (lower.includes(key)) {
-      return keywordMapping[key];
-    }
-  }
-  return 'default.png';
-}
-
-function tampilkanRestoran() {
-  loadCSVandPickRandom(resto => {
-    const nama = resto['Nama']?.trim() || '-';
-    const pedagang = resto['Pedagang']?.trim() || '-';
-    const jam = resto['Waktu Dagang']?.trim() || '-';
-    const jualan = resto['Yang Dijual']?.trim() || '-';
-
-    const imageFile = getImageFile(jualan);
-    const imagePath = `images/resto/${imageFile}`;
-
-    document.getElementById("resto-box").innerHTML = `
-      <div class="card">
-        <h2>${nama}</h2>
-        <img src="${imagePath}" alt="${nama}" style="width:100%; height:auto; max-height:200px; object-fit:cover; border-radius:8px; margin: 1rem 0;" />
-        <p><strong>👤 Pedagang:</strong> ${pedagang}</p>
-        <p><strong>🕒 Jam buka:</strong> ${jam}</p>
-        <p><strong>🍽️ Yang Dijual:</strong> ${jualan}</p>
-      </div>
-    `;
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  tampilkanRestoran();
-
-  const tombol = document.querySelector('button');
-  if (tombol) {
-    tombol.addEventListener('click', tampilkanRestoran);
-  }
 });

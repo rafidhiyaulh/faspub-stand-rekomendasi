@@ -13,17 +13,16 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       const restoBox = document.getElementById("resto-box");
-
       const randomIndex = Math.floor(Math.random() * data.length);
       const resto = data[randomIndex];
 
-      // Mapping kategori ke gambar
       const kategoriGambar = [
         { keyword: "bakmie", filename: "mie.jpg" },
         { keyword: "mie", filename: "mie.jpg" },
         { keyword: "ayam", filename: "ayam.jpg" },
         { keyword: "bebek", filename: "ayam.jpg" },
         { keyword: "nasi goreng", filename: "nasigoreng.jpg" },
+        { keyword: "goreng", filename: "nasigoreng.jpg" },
         { keyword: "jus", filename: "jus.jpg" },
         { keyword: "susu", filename: "susu.jpg" },
         { keyword: "rice bowl", filename: "ricebowl.jpg" },
@@ -41,8 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ];
 
       const jual = resto["Yang Dijual"].toLowerCase();
-
-      let gambarFile = "default.png"; // fallback
+      let gambarFile = "default.png";
 
       for (const kategori of kategoriGambar) {
         if (jual.includes(kategori.keyword)) {
@@ -51,11 +49,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
-      // Membuat elemen card
+      const imgPath = `assets/images/resto/${gambarFile}`;
+
       restoBox.innerHTML = `
         <div class="card">
           <h2>${resto.Nama}</h2>
-          <img src="assets/images/resto/${gambarFile}" alt="${resto.Nama}" class="resto-image"/>
+          <img src="${imgPath}" alt="${resto.Nama}" class="resto-image" onerror="this.src='assets/images/resto/default.png'" />
           <p><strong>👤 Pedagang:</strong> ${resto.Pedagang}</p>
           <p><strong>🕒 Jam buka:</strong> ${resto["Waktu Dagang"]}</p>
           <p><strong>🍽️ Yang Dijual:</strong> ${resto["Yang Dijual"]}</p>

@@ -1,4 +1,4 @@
-/* === Revised style.css === */
+/* === Final Revised style.css === */
 body {
   margin: 0;
   padding: 0;
@@ -30,16 +30,17 @@ h1 {
   transform: scale(1.01);
 }
 
-img.resto-img {
+img.resto-image {
   width: 100%;
-  max-height: 200px;
+  max-height: 220px;
   object-fit: cover;
   border-radius: 12px;
-  margin-bottom: 15px;
+  margin: 15px 0;
   display: block;
 }
 
-button, .nav-button {
+button,
+a.button-secondary {
   background-color: #FF6B6B;
   color: #fff;
   border: none;
@@ -47,14 +48,15 @@ button, .nav-button {
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  margin: 10px;
+  margin: 10px 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
   text-decoration: none;
   display: inline-block;
 }
 
-button:hover, .nav-button:hover {
+button:hover,
+a.button-secondary:hover {
   background-color: #e65555;
 }
 
@@ -68,17 +70,16 @@ button:hover, .nav-button:hover {
   box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-a.secondary-button {
-  background-color: #ff6b6b;
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 1rem;
-  margin-left: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+p {
+  margin: 6px 0;
+  line-height: 1.4;
 }
 
-a.secondary-button:hover {
-  background-color: #e65555;
+strong {
+  color: #2c3e50;
+}
+
+.button-group {
+  text-align: center;
+  margin-bottom: 40px;
 }

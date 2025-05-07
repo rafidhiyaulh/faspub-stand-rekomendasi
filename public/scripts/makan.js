@@ -1,6 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("dataset_clean_fixed.csv")
+    fetch("dataset_gambar_unik.csv")
       .then(response => response.text())
       .then(csv => {
         const lines = csv.trim().split("\n");
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         card.className = "card";
   
         const img = document.createElement("img");
-        img.src = "assets/images/default.jpg";
+        img.src = `assets/images/resto/${resto["Gambar"]}`;
         img.alt = resto["Nama"];
         img.className = "resto-img";
   

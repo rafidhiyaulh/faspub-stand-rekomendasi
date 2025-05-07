@@ -128,3 +128,13 @@ img.resto-img,
     max-height: 200px;
   }
 }
+
+
+/* Samakan ukuran tombol <a> dan <button> */
+.nav-button {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}

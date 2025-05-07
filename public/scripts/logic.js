@@ -18,50 +18,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Bersihkan kontainer
       restoBox.innerHTML = "";
-      if (tombolGroup) tombolGroup.innerHTML = "";
 
-      // Pilih data acak
       const randomIndex = Math.floor(Math.random() * data.length);
       const resto = data[randomIndex];
 
-      // Tentukan gambar berdasarkan kata kunci
+      // Pilih gambar berdasarkan kategori
       const kategoriGambar = [
         { keyword: "bakmie", filename: "mie.jpg" },
         { keyword: "mie", filename: "mie.jpg" },
         { keyword: "ayam", filename: "ayam.jpg" },
         { keyword: "bebek", filename: "ayam.jpg" },
         { keyword: "nasi goreng", filename: "nasigoreng.jpg" },
-        { keyword: "gorengan", filename: "gorengan.jpg" },
+        { keyword: "goreng", filename: "nasigoreng.jpg" },
         { keyword: "bubur", filename: "bubur.jpg" },
-        { keyword: "dimsum", filename: "dimsum.jpg" },
-        { keyword: "jus", filename: "jus.jpg" },
+        { keyword: "minuman", filename: "minuman.jpg" },
         { keyword: "teh", filename: "minuman.jpg" },
-        { keyword: "kopi", filename: "minuman.jpg" },
-        { keyword: "ricebowl", filename: "ricebowl.jpg" },
-        { keyword: "pecel", filename: "pecel.jpg" },
-        { keyword: "minum", filename: "minuman.jpg" },
-        { keyword: "snack", filename: "snack.jpg" },
-        { keyword: "buku", filename: "book.jpg" }
+        { keyword: "buku", filename: "buku.jpg" }
       ];
 
+      let selectedImage = "default.jpg";
       const jualan = resto["Yang Dijual"].toLowerCase();
-      let filename = "default.jpg";
       for (const kategori of kategoriGambar) {
         if (jualan.includes(kategori.keyword)) {
-          filename = kategori.filename;
+          selectedImage = kategori.filename;
           break;
         }
       }
 
-      // Buat elemen HTML
+      // Buat elemen kartu
       const card = document.createElement("div");
-      card.className = "resto-card";
-      card.innerHTML = `
-        <img src="assets/images/resto/${filename}" alt="${resto.Nama || "Kuliner"}">
-        <h3>${resto.Nama}</h3>
-        <p><strong>Yang Dijual:</strong> ${resto["Yang Dijual"]}</p>
-      `;
+      card.className = "card";
 
+      const img = document.createElement("img");
+      img.src = `assets/images/${selectedImage}`;
+      img.alt = resto["Nama"] || "Gambar Stand";
+      img.className = "resto-img";
+
+      const nama = document.createElement("h3");
+      nama.textContent = resto["Nama"];
+
+      const jual = document.createElement("p");
+      jual.innerHTML = `<strong>Yang Dijual:</strong> ${resto["Yang Dijual"]}`;
+
+      card.appendChild(img);
+      card.appendChild(nama);
+      card.appendChild(jual);
       restoBox.appendChild(card);
+
+      // Tambahkan kembali tombol
+      tombolGroup.innerHTML = `
+        <button class="nav-button" onclick="window.location.reload()">Lihat Tempat Lain</button>
+        <a href="index.html" class="nav-button" style="text-align: center;">Kembali ke Halaman Utama</a>
+      `;
     });
 });

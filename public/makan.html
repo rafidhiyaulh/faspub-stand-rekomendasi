@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,46 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rekomendasi Makanan</title>
   <link rel="stylesheet" href="assets/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-content">
-      <h1><span class="highlight">🍽️ Rekomendasi Makanan</span></h1>
-      <p class="subtitle">Jawab pertanyaan berikut untuk mendapatkan saran menu terbaik</p>
-    </div>
-  </header>
+  <h1>Pilihan Makanan Hari Ini</h1>
 
-  <main class="main-content">
-    <div class="question-box" id="pertanyaan-ayam">
-      <p>Mau makan ayam?</p>
-      <div class="button-group">
-        <button onclick="jawabAyam(true)" class="nav-button">✅ Iya</button>
-        <button onclick="jawabAyam(false)" class="nav-button">❌ Tidak</button>
-      </div>
+  <div class="option-box" id="pertanyaan-ayam">
+    <p class="lead-text">Mau makan ayam?</p>
+    <div class="button-group">
+      <button class="nav-button" onclick="jawabAyam(true)">Ya, saya ingin makan ayam</button>
+      <button class="nav-button" onclick="jawabAyam(false)">Tidak, saya tidak ingin makan ayam</button>
     </div>
+  </div>
 
-    <div class="question-box" id="pertanyaan-soto" style="display: none;">
-      <p>Kalau begitu, mau makan soto?</p>
-      <div class="button-group">
-        <button onclick="jawabSoto(true)" class="nav-button">✅ Iya</button>
-        <button onclick="jawabSoto(false)" class="nav-button">❌ Tidak</button>
-      </div>
+  <div class="option-box" id="pertanyaan-soto" style="display: none;">
+    <p class="lead-text">Kalau begitu, mau makan soto?</p>
+    <div class="button-group">
+      <button class="nav-button" onclick="jawabSoto(true)">Ya, saya ingin makan soto</button>
+      <button class="nav-button" onclick="jawabSoto(false)">Tidak, saya tidak ingin makan soto</button>
     </div>
+  </div>
 
-    <div class="question-box" id="pertanyaan-gorengan" style="display: none;">
-      <p>Mungkin gorengan bisa jadi pilihan?</p>
-      <div class="button-group">
-        <button onclick="jawabGorengan(true)" class="nav-button">✅ Iya</button>
-        <button onclick="jawabGorengan(false)" class="nav-button">❌ Tidak</button>
-      </div>
-    </div>
-  </main>
+  <div id="hasil-rekomendasi" class="resto-grid"></div>
 
-  <footer class="footer">
-    <p>© 2025 Faspub. Dibuat dengan 🍜 oleh Mahasiswa ITB.</p>
-  </footer>
+  <div class="button-group" id="aksi-lanjut" style="margin-bottom: 40px;"></div>
 
   <script src="scripts/logic.js"></script>
+  <script src="scripts/makan.js"></script>
 </body>
 </html>

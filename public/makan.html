@@ -5,143 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rekomendasi Makanan</title>
   <link rel="stylesheet" href="assets/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>🍽️ Pilihan Makanan Hari Ini</h1>
+  <header class="hero">
+    <div class="hero-content">
+      <h1><span class="highlight">🍽️ Rekomendasi Makanan</span></h1>
+      <p class="subtitle">Jawab pertanyaan berikut untuk mendapatkan saran menu terbaik</p>
+    </div>
+  </header>
 
-  <div class="option-box" id="pertanyaan-ayam">
-    <p>Mau makan ayam?</p>
-    <button onclick="jawabAyam(true)">✅ Iya</button>
-    <button onclick="jawabAyam(false)">❌ Tidak</button>
-  </div>
+  <main class="main-content">
+    <div class="question-box" id="pertanyaan-ayam">
+      <p>Mau makan ayam?</p>
+      <div class="button-group">
+        <button onclick="jawabAyam(true)" class="nav-button">✅ Iya</button>
+        <button onclick="jawabAyam(false)" class="nav-button">❌ Tidak</button>
+      </div>
+    </div>
 
-  <div class="option-box" id="pertanyaan-soto" style="display: none;">
-    <p>Kalau begitu, mau makan soto?</p>
-    <button onclick="jawabSoto(true)">✅ Iya</button>
-    <button onclick="jawabSoto(false)">❌ Tidak</button>
-  </div>
+    <div class="question-box" id="pertanyaan-soto" style="display: none;">
+      <p>Kalau begitu, mau makan soto?</p>
+      <div class="button-group">
+        <button onclick="jawabSoto(true)" class="nav-button">✅ Iya</button>
+        <button onclick="jawabSoto(false)" class="nav-button">❌ Tidak</button>
+      </div>
+    </div>
 
-  <div id="hasil-rekomendasi" class="resto-grid"></div>
+    <div class="question-box" id="pertanyaan-gorengan" style="display: none;">
+      <p>Mungkin gorengan bisa jadi pilihan?</p>
+      <div class="button-group">
+        <button onclick="jawabGorengan(true)" class="nav-button">✅ Iya</button>
+        <button onclick="jawabGorengan(false)" class="nav-button">❌ Tidak</button>
+      </div>
+    </div>
+  </main>
 
-  <div class="button-group" id="aksi-lanjut"></div>
+  <footer class="footer">
+    <p>© 2025 Faspub. Dibuat dengan 🍜 oleh Mahasiswa ITB.</p>
+  </footer>
 
-  <script>
-    let dataset = [];
-
-    function slugify(text) {
-      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    }
-
-    function tampilkanRestoran(restoranList) {
-      const container = document.getElementById("hasil-rekomendasi");
-      container.innerHTML = '';
-
-      restoranList.forEach(resto => {
-        const gambar = getGambar(resto);
-        const card = `
-          <div class="card">
-            <h2>${resto.Nama}</h2>
-            <img src="assets/images/resto/${gambar}" alt="${resto.Nama}" class="resto-img" />
-            <p><strong>👤 Pedagang:</strong> ${resto.Pedagang}</p>
-            <p><strong>🕒 Jam buka:</strong> ${resto['Waktu Dagang']}</p>
-            <p><strong>🍽️ Yang Dijual:</strong> ${resto['Yang Dijual']}</p>
-          </div>
-        `;
-        container.innerHTML += card;
-      });
-    }
-
-    function getGambar(resto) {
-      const jual = resto["Yang Dijual"].toLowerCase();
-      const kategori = [
-        { keyword: "ayam", file: "ayam.jpg" },
-        { keyword: "soto", file: "soto.jpg" },
-        { keyword: "bakmie", file: "mie.jpg" },
-        { keyword: "jus", file: "jus.jpg" },
-        { keyword: "susu", file: "susu.jpg" },
-        { keyword: "rice bowl", file: "ricebowl.jpg" },
-        { keyword: "minuman", file: "minuman.jpg" },
-        { keyword: "padang", file: "padang.jpg" },
-        { keyword: "dimsum", file: "dimsum.jpg" },
-        { keyword: "gorengan", file: "gorengan.jpg" },
-        { keyword: "bubur", file: "bubur.jpg" },
-      ];
-      for (const kat of kategori) {
-        if (jual.includes(kat.keyword)) return kat.file;
-      }
-      return "default.png";
-    }
-
-    function acak(list, jumlah) {
-      const hasil = [...list];
-      for (let i = hasil.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [hasil[i], hasil[j]] = [hasil[j], hasil[i]];
-      }
-      return hasil.slice(0, jumlah);
-    }
-
-    function jawabAyam(mauAyam) {
-      document.getElementById("pertanyaan-ayam").style.display = "none";
-      if (mauAyam) {
-        const ayamList = dataset.filter(r => r["Yang Dijual"].toLowerCase().includes("ayam"));
-        tampilkanRestoran(acak(ayamList, 5));
-        document.getElementById("aksi-lanjut").innerHTML = `
-          <button onclick="tampilUlangAyam()">🔄 Ingin restoran ayam yang lain</button>
-          <a href="index.html" class="button-secondary">⬅️ Kembali</a>
-        `;
-      } else {
-        document.getElementById("pertanyaan-soto").style.display = "block";
-      }
-    }
-
-    function jawabSoto(mauSoto) {
-      document.getElementById("pertanyaan-soto").style.display = "none";
-      if (mauSoto) {
-        const kuahList = dataset.filter(r => r.Nama.includes("Nasi Betawi") || r.Nama.includes("Warung Asmad"));
-        tampilkanRestoran(kuahList);
-        document.getElementById("aksi-lanjut").innerHTML = `
-          <a href="index.html" class="button-secondary">⬅️ Kembali</a>
-        `;
-      } else {
-        tampilRestoranSelainAyamSoto();
-      }
-    }
-
-    function tampilUlangAyam() {
-      const ayamList = dataset.filter(r => r["Yang Dijual"].toLowerCase().includes("ayam"));
-      tampilkanRestoran(acak(ayamList, 5));
-    }
-
-    function tampilRestoranSelainAyamSoto() {
-      const selainList = dataset.filter(r => !r["Yang Dijual"].toLowerCase().includes("ayam") && !r["Yang Dijual"].toLowerCase().includes("soto"));
-      const tampil = acak(selainList, 5);
-      tampilkanRestoran(tampil);
-      document.getElementById("aksi-lanjut").innerHTML = `
-        <button onclick="tampilRestoranSelainAyamSotoTambahan()">➕ Lihat 5 Tempat Lain</button>
-        <a href="index.html" class="button-secondary">⬅️ Kembali</a>
-      `;
-    }
-
-    function tampilRestoranSelainAyamSotoTambahan() {
-      const selainList = dataset.filter(r => !r["Yang Dijual"].toLowerCase().includes("ayam") && !r["Yang Dijual"].toLowerCase().includes("soto"));
-      const tambahan = acak(selainList, 5);
-      tampilkanRestoran(tambahan);
-    }
-
-    // Load dataset
-    fetch("dataset_clean_fixed.csv")
-      .then(response => response.text())
-      .then(text => {
-        const rows = text.trim().split("\n");
-        const headers = rows[0].split("|");
-        dataset = rows.slice(1).map(row => {
-          const cols = row.split("|");
-          const obj = {};
-          headers.forEach((h, i) => obj[h.trim()] = cols[i]?.trim() || "");
-          return obj;
-        });
-      });
-  </script>
+  <script src="scripts/logic.js"></script>
 </body>
 </html>

@@ -1,135 +1,115 @@
-/* === Final style.css for Faspub === */
 
+/* Google Fonts */
 body {
   margin: 0;
-  padding: 0;
-  background-color: #FFF4E6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fefcf9;
+  color: #2f2f2f;
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(to right, #fff0e5, #f9e2c7);
+  padding: 100px 20px;
   text-align: center;
 }
 
-h1 {
-  margin-top: 30px;
+.hero-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: #2f2f2f;
+}
+
+.highlight {
   color: #d35400;
-  font-size: 1.9rem;
 }
 
-/* === Grid Display === */
-.resto-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto 40px;
-  justify-content: center;
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #444;
 }
 
-.card {
-  background-color: #FFF9C4;
-  border: 1px solid #FDD835;
-  border-radius: 16px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  text-align: left;
-  transition: transform 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-}
-
-img.resto-img {
-  width: 100%;
-  max-height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  display: block;
-}
-
-/* === Button Styling === */
-button,
-a.button-secondary {
-  background-color: #FF6B6B;
-  color: #fff;
-  border: none;
-  padding: 10px 22px;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  margin: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: all 0.25s ease;
-  text-decoration: none;
-  display: inline-block;
-}
-
-button:hover,
-a.button-secondary:hover {
-  background-color: #e65555;
-  transform: scale(1.05);
-}
-
-/* === Option Box === */
-.option-box {
-  background-color: #FFF9C4;
-  border: 2px solid #FDD835;
-  padding: 25px;
-  max-width: 420px;
-  margin: 30px auto;
-  border-radius: 16px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-p {
-  margin: 6px 0;
-  line-height: 1.5;
-}
-
-strong {
-  color: #2c3e50;
-}
-
+/* Buttons */
 .button-group {
-  text-align: center;
-  margin: 40px auto;
   display: flex;
   justify-content: center;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 16px;
 }
 
-.secondary-button {
-  background-color: #FFA07A;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 6px;
+.nav-button {
+  padding: 0.8rem 1.5rem;
+  background-color: #d35400;
+  color: #fff;
   text-decoration: none;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.secondary-button:hover {
-  background-color: #FF8C69;
-  transform: scale(1.05);
+.nav-button:hover {
+  background-color: #b34700;
+  transform: translateY(-2px);
 }
 
-/* === Responsive Fixes === */
-@media screen and (max-width: 500px) {
-  h1 {
-    font-size: 1.4rem;
-  }
+/* Footer */
+.footer {
+  background-color: #2f2f2f;
+  color: #fefcf9;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  margin-top: 60px;
+}
 
-  .option-box {
-    padding: 20px;
-  }
 
-  .card {
-    padding: 16px;
-  }
+.resto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+}
 
-  .resto-grid {
-    grid-template-columns: 1fr;
-  }
+.resto-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resto-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.resto-card h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.3rem;
+  color: #d35400;
+  font-family: 'Playfair Display', serif;
+}
+
+.resto-card p {
+  padding: 0 1rem 1rem;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.resto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }

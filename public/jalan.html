@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,30 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rekomendasi Tempat Jajan</title>
   <link rel="stylesheet" href="assets/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-content">
-      <h1><span class="highlight">🎯 Rekomendasi Tempat Jajan</span></h1>
-      <p class="subtitle">Satu tempat, satu rasa nikmat. Cek pilihan hari ini!</p>
-    </div>
-  </header>
+  <h1>Rekomendasi Tempat Jajan Hari Ini</h1>
 
-  <main class="main-content">
-    <div class="resto-grid" id="resto-box">
-      <!-- JS akan menyisipkan rekomendasi di sini -->
-    </div>
+  <div class="resto-grid" id="resto-box">
+    <!-- JS akan menyisipkan rekomendasi di sini -->
+  </div>
 
-    <div class="button-group" style="margin-top: 2rem;">
-      <button onclick="window.location.reload()" class="nav-button">🔄 Lihat Tempat Lain</button>
-      <a href="index.html" class="nav-button">⬅️ Kembali ke Halaman Utama</a>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <p>© 2025 Faspub. Dibuat dengan 🍜 oleh Mahasiswa ITB.</p>
-  </footer>
+  <div class="button-group" style="margin-bottom: 40px;">
+    <button class="nav-button" onclick="window.location.reload()">Lihat Tempat Lain</button>
+    <a href="index.html" class="nav-button" style="text-align: center;">Kembali ke Halaman Utama</a>
+  </div>
 
   <script src="scripts/logic.js"></script>
 </body>

@@ -7,18 +7,30 @@
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <h1>🍽️ <span class="highlight">Pilihan Makanan Hari Ini</span></h1>
+  <h1>🍽️ Pilihan Makanan Hari Ini</h1>
 
-  <div class="option-box" id="pertanyaan">
-    <p class="lead-text">Mau makan ayam?</p>
+  <div class="option-box" id="pertanyaan-ayam">
+    <p>Mau makan ayam?</p>
     <button onclick="jawabAyam(true)">✅ Iya</button>
     <button onclick="jawabAyam(false)">❌ Tidak</button>
   </div>
 
-  <div id="hasil-rekomendasi"></div>
+  <div class="option-box" id="pertanyaan-soto" style="display: none;">
+    <p>Kalau begitu, mau makan soto?</p>
+    <button onclick="jawabSoto(true)">✅ Iya</button>
+    <button onclick="jawabSoto(false)">❌ Tidak</button>
+  </div>
+
+  <div id="hasil-rekomendasi" class="resto-grid"></div>
+
+  <div class="button-group" id="aksi-lanjut"></div>
 
   <script>
     let dataset = [];
+
+    function slugify(text) {
+      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
 
     function tampilkanRestoran(restoranList) {
       const container = document.getElementById("hasil-rekomendasi");
@@ -53,13 +65,11 @@
         { keyword: "dimsum", file: "dimsum.jpg" },
         { keyword: "gorengan", file: "gorengan.jpg" },
         { keyword: "bubur", file: "bubur.jpg" },
-        { keyword: "buku", file: "book.jpg" },
-        { keyword: "default", file: "default.jpg" },
       ];
       for (const kat of kategori) {
         if (jual.includes(kat.keyword)) return kat.file;
       }
-      return "default.jpg";
+      return "default.png";
     }
 
     function acak(list, jumlah) {
@@ -72,27 +82,29 @@
     }
 
     function jawabAyam(mauAyam) {
-      document.getElementById("pertanyaan").style.display = "none";
-
+      document.getElementById("pertanyaan-ayam").style.display = "none";
       if (mauAyam) {
         const ayamList = dataset.filter(r => r["Yang Dijual"].toLowerCase().includes("ayam"));
         tampilkanRestoran(acak(ayamList, 5));
-
-        document.getElementById("hasil-rekomendasi").innerHTML += `
-          <div class="button-group">
-            <button onclick="tampilUlangAyam()">🔄 Ingin restoran ayam yang lain</button>
-            <a href="index.html" class="button-secondary">⬅️ Kembali</a>
-          </div>
+        document.getElementById("aksi-lanjut").innerHTML = `
+          <button onclick="tampilUlangAyam()">🔄 Ingin restoran ayam yang lain</button>
+          <a href="index.html" class="button-secondary">⬅️ Kembali</a>
         `;
       } else {
-        const kuahList = dataset.filter(r => r.Nama.includes("Soto Betawi") || r.Nama.includes("Warung Asmad"));
-        tampilkanRestoran(kuahList);
+        document.getElementById("pertanyaan-soto").style.display = "block";
+      }
+    }
 
-        document.getElementById("hasil-rekomendasi").innerHTML += `
-          <div class="button-group">
-            <a href="index.html" class="button-secondary">⬅️ Kembali</a>
-          </div>
+    function jawabSoto(mauSoto) {
+      document.getElementById("pertanyaan-soto").style.display = "none";
+      if (mauSoto) {
+        const kuahList = dataset.filter(r => r.Nama.includes("Nasi Betawi") || r.Nama.includes("Warung Asmad"));
+        tampilkanRestoran(kuahList);
+        document.getElementById("aksi-lanjut").innerHTML = `
+          <a href="index.html" class="button-secondary">⬅️ Kembali</a>
         `;
+      } else {
+        tampilRestoranSelainAyamSoto();
       }
     }
 
@@ -101,6 +113,23 @@
       tampilkanRestoran(acak(ayamList, 5));
     }
 
+    function tampilRestoranSelainAyamSoto() {
+      const selainList = dataset.filter(r => !r["Yang Dijual"].toLowerCase().includes("ayam") && !r["Yang Dijual"].toLowerCase().includes("soto"));
+      const tampil = acak(selainList, 5);
+      tampilkanRestoran(tampil);
+      document.getElementById("aksi-lanjut").innerHTML = `
+        <button onclick="tampilRestoranSelainAyamSotoTambahan()">➕ Lihat 5 Tempat Lain</button>
+        <a href="index.html" class="button-secondary">⬅️ Kembali</a>
+      `;
+    }
+
+    function tampilRestoranSelainAyamSotoTambahan() {
+      const selainList = dataset.filter(r => !r["Yang Dijual"].toLowerCase().includes("ayam") && !r["Yang Dijual"].toLowerCase().includes("soto"));
+      const tambahan = acak(selainList, 5);
+      tampilkanRestoran(tambahan);
+    }
+
+    // Load dataset
     fetch("dataset_clean_fixed.csv")
       .then(response => response.text())
       .then(text => {

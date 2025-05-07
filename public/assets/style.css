@@ -1,4 +1,5 @@
-/* === Final Revised style.css === */
+/* === Final style.css for Faspub === */
+
 body {
   margin: 0;
   padding: 0;
@@ -11,46 +12,55 @@ body {
 h1 {
   margin-top: 30px;
   color: #d35400;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
+}
+
+/* === Grid Display === */
+.resto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
 }
 
 .card {
   background-color: #FFF9C4;
   border: 1px solid #FDD835;
   border-radius: 16px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-  padding: 25px;
-  max-width: 480px;
-  margin: 30px auto;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   text-align: left;
-  transition: transform 0.3s;
+  transition: transform 0.2s ease;
 }
 
 .card:hover {
-  transform: scale(1.01);
+  transform: translateY(-3px);
 }
 
 img.resto-img {
   width: 100%;
-  max-height: 220px;
+  max-height: 160px;
   object-fit: cover;
   border-radius: 12px;
-  margin: 15px 0;
+  margin-bottom: 12px;
   display: block;
 }
 
+/* === Button Styling === */
 button,
 a.button-secondary {
   background-color: #FF6B6B;
   color: #fff;
   border: none;
-  padding: 10px 25px;
+  padding: 10px 22px;
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
   margin: 10px 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: all 0.25s ease;
   text-decoration: none;
   display: inline-block;
 }
@@ -61,19 +71,20 @@ a.button-secondary:hover {
   transform: scale(1.05);
 }
 
+/* === Option Box === */
 .option-box {
   background-color: #FFF9C4;
   border: 2px solid #FDD835;
-  padding: 30px;
-  max-width: 400px;
-  margin: 40px auto;
+  padding: 25px;
+  max-width: 420px;
+  margin: 30px auto;
   border-radius: 16px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 p {
   margin: 6px 0;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 strong {
@@ -85,24 +96,35 @@ strong {
   margin-bottom: 40px;
 }
 
-.highlight {
-  color: #ff6b6b;
+.secondary-button {
+  background-color: #FFA07A;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
-.lead-text {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 20px;
+.secondary-button:hover {
+  background-color: #FF8C69;
+  transform: scale(1.05);
 }
 
-.grid-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
+/* === Responsive Fixes === */
+@media screen and (max-width: 500px) {
+  h1 {
+    font-size: 1.4rem;
+  }
 
-.grid-container .card {
-  flex: 1 1 calc(45% - 20px);
-  max-width: calc(45% - 20px);
+  .option-box {
+    padding: 20px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .resto-grid {
+    grid-template-columns: 1fr;
+  }
 }

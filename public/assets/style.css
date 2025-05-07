@@ -62,3 +62,9 @@ h1 {
   background-color: #333;
   transform: scale(1.03);
 }
+
+/* Remove underline for <a> elements styled as nav-button */
+a.nav-button {
+  text-decoration: none;
+  display: inline-block;
+}

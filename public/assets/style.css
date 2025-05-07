@@ -93,8 +93,13 @@ strong {
 
 .button-group {
   text-align: center;
-  margin-bottom: 40px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
+
 
 .secondary-button {
   background-color: #FFA07A;

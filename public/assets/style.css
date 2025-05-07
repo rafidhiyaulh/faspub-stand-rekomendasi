@@ -23,6 +23,7 @@ h1 {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto 40px;
+  justify-content: center;
 }
 
 .card {
@@ -58,7 +59,7 @@ a.button-secondary {
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  margin: 10px 8px;
+  margin: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: all 0.25s ease;
   text-decoration: none;
@@ -99,7 +100,6 @@ strong {
   flex-wrap: wrap;
   gap: 16px;
 }
-
 
 .secondary-button {
   background-color: #FFA07A;

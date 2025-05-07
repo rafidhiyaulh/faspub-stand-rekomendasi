@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       const restoBox = document.getElementById("resto-box");
+      const tombolGroup = document.querySelector(".button-group");
+
+      // Bersihkan kontainer terlebih dahulu
+      restoBox.innerHTML = "";
+      tombolGroup.innerHTML = "";
+
       const randomIndex = Math.floor(Math.random() * data.length);
       const resto = data[randomIndex];
 
@@ -49,8 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
-      const imgPath = `assets/images/resto/${gambarFile}`;
-
       restoBox.innerHTML = `
         <div class="card">
           <h2>${resto.Nama}</h2>
@@ -59,10 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
           <p><strong>🕒 Jam buka:</strong> ${resto["Waktu Dagang"]}</p>
           <p><strong>🍽️ Yang Dijual:</strong> ${resto["Yang Dijual"]}</p>
         </div>
-        <div class="button-group">
-          <button onclick="window.location.reload()">🔄 Lihat Tempat Lain</button>
-          <a href="index.html" class="button-secondary">⬅️ Kembali ke Halaman Utama</a>
-        </div>
+      `;
+
+      tombolGroup.innerHTML = `
+        <button onclick="window.location.reload()">🔄 Lihat Tempat Lain</button>
+        <a href="index.html" class="button-secondary">⬅️ Kembali ke Halaman Utama</a>
       `;
     });
 });

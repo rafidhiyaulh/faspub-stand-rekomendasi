@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <h1>🍽️ Pilihan Makanan Hari Ini</h1>
+  <h1>🍽️ <span class="highlight">Pilihan Makanan Hari Ini</span></h1>
 
   <div class="option-box" id="pertanyaan">
-    <p>Mau makan ayam?</p>
+    <p class="lead-text">Mau makan ayam?</p>
     <button onclick="jawabAyam(true)">✅ Iya</button>
     <button onclick="jawabAyam(false)">❌ Tidak</button>
   </div>
@@ -19,10 +19,6 @@
 
   <script>
     let dataset = [];
-
-    function slugify(text) {
-      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    }
 
     function tampilkanRestoran(restoranList) {
       const container = document.getElementById("hasil-rekomendasi");
@@ -57,12 +53,13 @@
         { keyword: "dimsum", file: "dimsum.jpg" },
         { keyword: "gorengan", file: "gorengan.jpg" },
         { keyword: "bubur", file: "bubur.jpg" },
-        { keyword: "default", file: "default.png" },
+        { keyword: "buku", file: "book.jpg" },
+        { keyword: "default", file: "default.jpg" },
       ];
       for (const kat of kategori) {
         if (jual.includes(kat.keyword)) return kat.file;
       }
-      return "default.png";
+      return "default.jpg";
     }
 
     function acak(list, jumlah) {
@@ -82,14 +79,19 @@
         tampilkanRestoran(acak(ayamList, 5));
 
         document.getElementById("hasil-rekomendasi").innerHTML += `
-          <button onclick="tampilUlangAyam()">🔄 Ingin restoran ayam yang lain</button>
-          <a href="index.html" class="secondary-button">⬅️ Kembali</a>
+          <div class="button-group">
+            <button onclick="tampilUlangAyam()">🔄 Ingin restoran ayam yang lain</button>
+            <a href="index.html" class="button-secondary">⬅️ Kembali</a>
+          </div>
         `;
       } else {
         const kuahList = dataset.filter(r => r.Nama.includes("Soto Betawi") || r.Nama.includes("Warung Asmad"));
         tampilkanRestoran(kuahList);
+
         document.getElementById("hasil-rekomendasi").innerHTML += `
-          <a href="index.html" class="secondary-button">⬅️ Kembali</a>
+          <div class="button-group">
+            <a href="index.html" class="button-secondary">⬅️ Kembali</a>
+          </div>
         `;
       }
     }
@@ -99,7 +101,6 @@
       tampilkanRestoran(acak(ayamList, 5));
     }
 
-    // Load dataset
     fetch("dataset_clean_fixed.csv")
       .then(response => response.text())
       .then(text => {

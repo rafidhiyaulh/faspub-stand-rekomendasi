@@ -1,69 +1,117 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pilih Kategori Makanan</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
-      text-align: center;
-      padding: 2rem;
-    }
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 1.5rem;
-    }
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 300px;
-      margin: 0 auto;
-    }
-    button {
-      padding: 1rem;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-    .ayam {
-      background-color: #f77f00;
-      color: white;
-    }
-    .ayam:hover {
-      background-color: #e76f00;
-    }
-    .kuah {
-      background-color: #118ab2;
-      color: white;
-    }
-    .kuah:hover {
-      background-color: #0f789d;
-    }
-    .lainnya {
-      background-color: #06d6a0;
-      color: white;
-    }
-    .lainnya:hover {
-      background-color: #04be8d;
-    }
-  </style>
-  <script>
-    function pilihKategori(kategori) {
-      window.location.href = `rekomendasi.html?kategori=${kategori}`;
-    }
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rekomendasi Makanan</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <h1>Lagi pengen makan apa?</h1>
-  <div class="button-group">
-    <button class="ayam" onclick="pilihKategori('ayam')">🍗 Ayam</button>
-    <button class="kuah" onclick="pilihKategori('kuah')">🍜 Kuah</button>
-    <button class="lainnya" onclick="pilihKategori('lainnya')">🍱 Lainnya</button>
+  <h1>🍽️ Pilihan Makanan Hari Ini</h1>
+
+  <div class="option-box" id="pertanyaan">
+    <p>Mau makan ayam?</p>
+    <button onclick="jawabAyam(true)">✅ Iya</button>
+    <button onclick="jawabAyam(false)">❌ Tidak</button>
   </div>
+
+  <div id="hasil-rekomendasi"></div>
+
+  <script>
+    let dataset = [];
+
+    function slugify(text) {
+      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    function tampilkanRestoran(restoranList) {
+      const container = document.getElementById("hasil-rekomendasi");
+      container.innerHTML = '';
+
+      restoranList.forEach(resto => {
+        const gambar = getGambar(resto);
+        const card = `
+          <div class="card">
+            <h2>${resto.Nama}</h2>
+            <img src="assets/images/resto/${gambar}" alt="${resto.Nama}" class="resto-img" />
+            <p><strong>👤 Pedagang:</strong> ${resto.Pedagang}</p>
+            <p><strong>🕒 Jam buka:</strong> ${resto['Waktu Dagang']}</p>
+            <p><strong>🍽️ Yang Dijual:</strong> ${resto['Yang Dijual']}</p>
+          </div>
+        `;
+        container.innerHTML += card;
+      });
+    }
+
+    function getGambar(resto) {
+      const jual = resto["Yang Dijual"].toLowerCase();
+      const kategori = [
+        { keyword: "ayam", file: "ayam.jpg" },
+        { keyword: "soto", file: "soto.jpg" },
+        { keyword: "bakmie", file: "mie.jpg" },
+        { keyword: "jus", file: "jus.jpg" },
+        { keyword: "susu", file: "susu.jpg" },
+        { keyword: "rice bowl", file: "ricebowl.jpg" },
+        { keyword: "minuman", file: "minuman.jpg" },
+        { keyword: "padang", file: "padang.jpg" },
+        { keyword: "dimsum", file: "dimsum.jpg" },
+        { keyword: "gorengan", file: "gorengan.jpg" },
+        { keyword: "bubur", file: "bubur.jpg" },
+        { keyword: "default", file: "default.png" },
+      ];
+      for (const kat of kategori) {
+        if (jual.includes(kat.keyword)) return kat.file;
+      }
+      return "default.png";
+    }
+
+    function acak(list, jumlah) {
+      const hasil = [...list];
+      for (let i = hasil.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [hasil[i], hasil[j]] = [hasil[j], hasil[i]];
+      }
+      return hasil.slice(0, jumlah);
+    }
+
+    function jawabAyam(mauAyam) {
+      document.getElementById("pertanyaan").style.display = "none";
+
+      if (mauAyam) {
+        const ayamList = dataset.filter(r => r["Yang Dijual"].toLowerCase().includes("ayam"));
+        tampilkanRestoran(acak(ayamList, 5));
+
+        document.getElementById("hasil-rekomendasi").innerHTML += `
+          <button onclick="tampilUlangAyam()">🔄 Ingin restoran ayam yang lain</button>
+          <a href="index.html" class="secondary-button">⬅️ Kembali</a>
+        `;
+      } else {
+        const kuahList = dataset.filter(r => r.Nama.includes("Soto Betawi") || r.Nama.includes("Warung Asmad"));
+        tampilkanRestoran(kuahList);
+        document.getElementById("hasil-rekomendasi").innerHTML += `
+          <a href="index.html" class="secondary-button">⬅️ Kembali</a>
+        `;
+      }
+    }
+
+    function tampilUlangAyam() {
+      const ayamList = dataset.filter(r => r["Yang Dijual"].toLowerCase().includes("ayam"));
+      tampilkanRestoran(acak(ayamList, 5));
+    }
+
+    // Load dataset
+    fetch("dataset_clean_fixed.csv")
+      .then(response => response.text())
+      .then(text => {
+        const rows = text.trim().split("\n");
+        const headers = rows[0].split("|");
+        dataset = rows.slice(1).map(row => {
+          const cols = row.split("|");
+          const obj = {};
+          headers.forEach((h, i) => obj[h.trim()] = cols[i]?.trim() || "");
+          return obj;
+        });
+      });
+  </script>
 </body>
 </html>

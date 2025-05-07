@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       restoBox.innerHTML = `
         <div class="card">
           <h2>${resto.Nama}</h2>
-          <img src="${imgPath}" alt="${resto.Nama}" class="resto-image" onerror="this.src='assets/images/resto/default.png'" />
+          <img src="assets/images/resto/${gambarFile}" alt="${resto.Nama}" class="resto-img" />
           <p><strong>👤 Pedagang:</strong> ${resto.Pedagang}</p>
           <p><strong>🕒 Jam buka:</strong> ${resto["Waktu Dagang"]}</p>
           <p><strong>🍽️ Yang Dijual:</strong> ${resto["Yang Dijual"]}</p>
